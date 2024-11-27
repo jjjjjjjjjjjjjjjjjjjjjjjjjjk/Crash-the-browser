@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Resource Intensive Example</title>
+  <title>Extreme Resource Intensive Example</title>
 </head>
 <body>
-  <button id="startButton">Start Intensive Task</button>
+  <button id="startButton">Start Extreme Task (WARNING!)</button>
 
   <script>
     const startButton = document.getElementById('startButton');
 
     startButton.addEventListener('click', () => {
-      if (confirm("Warning: This might crash your browser. Are you sure you want to proceed?")) {
-        // Simulate a very resource-intensive task
-        for (let i = 0; i < 1000000; i++) {
-          // Perform complex calculations
-          let result = Math.sqrt(i) * Math.pow(i, 3) / Math.log(i + 1);
+      if (confirm("DANGER! This is VERY likely to crash your browser. Are you absolutely sure?")) {
 
-          // Create and manipulate large strings
-          let longString = "a".repeat(10000);
-          longString += result.toString();
+        // Recursive function to consume memory and processing power
+        function recursiveDoom(depth) {
+          if (depth <= 0) {
+            return;
+          }
+
+          // Create massive arrays
+          const hugeArray1 = new Array(1000000).fill(Math.random());
+          const hugeArray2 = new Array(1000000).fill(Math.random());
+
+          // Perform complex operations on the arrays
+          for (let i = 0; i < hugeArray1.length; i++) {
+            hugeArray1[i] = Math.pow(hugeArray1[i], hugeArray2[i]);
+          }
 
           // Create and append many DOM elements
-          const newDiv = document.createElement('div');
-          newDiv.textContent = longString;
-          document.body.appendChild(newDiv);
+          for (let i = 0; i < 1000; i++) {
+            const newDiv = document.createElement('div');
+            newDiv.textContent = hugeArray1.join(''); // Create a huge string
+            document.body.appendChild(newDiv);
+          }
+
+          // Recursive call to further consume resources
+          recursiveDoom(depth - 1); 
         }
+
+        // Start the recursive doom with a high depth
+        recursiveDoom(100); 
       }
     });
   </script>
